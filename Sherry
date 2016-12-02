@@ -1,0 +1,173 @@
+setwd("C:/Users/yinxi/Desktop/12-7 Data")
+
+final = read.csv("final_cleaned.csv")
+request = read.csv("request_new.csv")
+zip = read.csv("zipcode.csv")
+
+library(ggmap)
+library(qmap)
+library(ggplot2)
+library(dplyr)
+library(lubridate)
+
+request$CreatedDate=mdy_hms(request$CreatedDate)
+
+month<-month(request$CreatedDate)
+day<-wday(request$CreatedDate)
+hour<-hour(request$CreatedDate)
+
+request=cbind(request,month)
+request=cbind(request,day)
+request=cbind(request,hour)
+
+### ServiceType Count
+
+type<-request %>%
+  group_by(RequestType) %>%
+  summarise(count=n()) %>%
+  arrange(desc(count))
+
+ggplot(type, aes(x = count, y=reorder(RequestType,count))) +
+  geom_point(size = 3)+
+  xlab("Number of Request")+
+  ylab("Request Type")+
+  theme_bw()
+
+### Services day of week distribution
+
+# bar
+ggplot(request, aes(x= wday(CreatedDate, label=T, abbr=F))) +
+  geom_bar() +
+  xlab("") +
+  ggtitle("Number of Incidents Reported through 311 system")
+
+# heatmap
+heatmapData <- request %>%
+  mutate(Day = wday(CreatedDate, label = T, abbr = F),
+         Hour = hour(CreatedDate))%>%
+  group_by(Day, Hour)%>%
+  summarise(Count = n())
+
+ggplot(heatmapData, aes(x = Day, y = as.factor(Hour), fill = Count )) +
+  geom_tile() +
+  scale_fill_gradient(low = "white", high = "darkred") +
+  ggtitle("Heatmap of Services") +
+  xlab("Day of week") +
+  ylab ("Hour of day")
+
+# Monday-Sunday, descending order
+
+### services month distribution
+# bar
+ggplot(request, aes(x= month(CreatedDate, label=T, abbr=T))) +
+  geom_bar() +
+  xlab("") +
+  ggtitle("Number of Incidents Reported through 311 system")
+
+# line
+month <- request %>%
+  group_by(month) %>%
+  summarise(count=n())
+
+ggplot(month, aes(x= factor(month),y=count,group = 1)) +
+  geom_line() +
+  geom_point(size = 4) +
+  xlab("") +
+  ggtitle("Number of Incidents Reported through 311 system")
+
+# August-October are service peak 
+
+### service spatial visualization
+
+LA=qmap("Los Angeles", zoom = 11,maptype="roadmap",color="bw")
+
+LA+
+  stat_density2d(data=request,aes(x=Longitude,y=Latitude,fill=..level..),
+                 geom = "polygon", alpha = 0.5) +
+  scale_fill_gradient(low= "white", high = "#bd0026") +
+  facet_wrap(~day)
+
+# downtown are more concentrated 
+
+### Service Type Breakdown
+
+# understand Bulky items common area distribution
+
+bulky<-request %>%
+  filter(RequestType=="Bulky Items")
+
+bulkyline<-request %>%
+  filter(RequestType=="Bulky Items") %>%
+  group_by(month) %>%
+  summarise(sum=n())
+
+LA+
+  stat_density2d(data=bulky,aes(x=Longitude,y=Latitude,fill=..level..),
+                 geom = "polygon", alpha = 0.5) +
+  scale_fill_gradient(low= "white", high = "#bd0026") +
+  facet_wrap(~day)
+
+# Graffitti Removal
+
+removal<-request %>%
+  filter(RequestType=="Graffiti Removal") %>%
+  group_by(month) %>%
+  summarise(count=n())
+
+ggplot(removal,aes(x=month,y=count))+
+  geom_line()+
+  geom_line(data=bulkyline,aes(x=month,y=sum),col="red")
+
+### input type request source 
+
+# input type and day
+ggplot(request, aes(x=as.factor(day), fill = RequestSource)) +
+  geom_bar(position ="dodge")
+
+# app/call
+app_call <- request %>%
+  filter(RequestSource %in% c("Call","Mobile App"))
+
+# app/call input and hour
+ggplot(app_call, aes(x = hour, fill = RequestSource)) +
+  geom_histogram(position = "identity", alpha = 0.4,bins=10)
+
+# input type and request type
+input <- app_call %>%
+  group_by(RequestSource,RequestType) %>%
+  summarise(count=n())
+
+### link to social & economical
+
+request$ZipCode=as.numeric(as.character(request$ZipCode))
+social <- merge(request, zip, by.x = "ZipCode", by.y = "Los.Angeles..CA", all.x = T)
+
+zip.request <- social %>%
+  filter(ZipCode > 90001)
+
+## income
+income_types_source <- zip.request %>%
+  group_by(total.income,RequestType,RequestSource) %>%
+  summarise(count=n())
+
+ggplot(income_types_source,aes(x=total.income, y=count,color = RequestSource))+
+  geom_point()
+
+ggplot(income_types_source,aes(x=total.income, y=count,color = RequestType))+
+  geom_point()
+
+## race
+race_types_source <- zip.request %>%
+  group_by(race,total.income,RequestType,RequestSource) %>%
+  summarise(count=n())
+
+BulkyItem <- filter(race_types_source, RequestType == "Bulky Items")
+GraffitiRemoval <- filter(race_types_source, RequestType == "Graffiti Removal")
+
+ggplot(BulklyItem,aes(x=total.income, y=count,color = race))+
+  geom_point()
+
+ggplot(GraffitiRemoval,aes(x=total.income, y=count,color = race))+
+  geom_point()
+
+
