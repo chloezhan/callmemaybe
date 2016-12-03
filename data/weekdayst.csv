@@ -1,0 +1,85 @@
+"","day","RequestType","count"
+"1","Mon","Bulky Items",63687
+"2","Mon","Dead Animal Removal",4901
+"3","Mon","Electronic Waste",6123
+"4","Mon","Feedback",156
+"5","Mon","Graffiti Removal",39636
+"6","Mon","Homeless Encampment",2236
+"7","Mon","Illegal Dumping Pickup",9123
+"8","Mon","Metal/Household Appliances",8632
+"9","Mon","Multiple Streetlight Issue",732
+"10","Mon","Other",2165
+"11","Mon","Report Water Waste",236
+"12","Mon","Single Streetlight Issue",2227
+"13","Tues","Bulky Items",121993
+"14","Tues","Dead Animal Removal",5233
+"15","Tues","Electronic Waste",12294
+"16","Tues","Feedback",132
+"17","Tues","Graffiti Removal",44721
+"18","Tues","Homeless Encampment",2560
+"19","Tues","Illegal Dumping Pickup",14445
+"20","Tues","Metal/Household Appliances",16778
+"21","Tues","Multiple Streetlight Issue",972
+"22","Tues","Other",2513
+"23","Tues","Report Water Waste",273
+"24","Tues","Single Streetlight Issue",3172
+"25","Wed","Bulky Items",27628
+"26","Wed","Dead Animal Removal",3647
+"27","Wed","Electronic Waste",2322
+"28","Wed","Feedback",79
+"29","Wed","Graffiti Removal",20758
+"30","Wed","Homeless Encampment",971
+"31","Wed","Illegal Dumping Pickup",3297
+"32","Wed","Metal/Household Appliances",3336
+"33","Wed","Multiple Streetlight Issue",267
+"34","Wed","Other",1327
+"35","Wed","Report Water Waste",211
+"36","Wed","Single Streetlight Issue",538
+"37","Thurs","Bulky Items",25130
+"38","Thurs","Dead Animal Removal",2803
+"39","Thurs","Electronic Waste",2132
+"40","Thurs","Feedback",46
+"41","Thurs","Graffiti Removal",13024
+"42","Thurs","Homeless Encampment",865
+"43","Thurs","Illegal Dumping Pickup",2288
+"44","Thurs","Metal/Household Appliances",3062
+"45","Thurs","Multiple Streetlight Issue",234
+"46","Thurs","Other",1261
+"47","Thurs","Report Water Waste",145
+"48","Thurs","Single Streetlight Issue",863
+"49","Fri","Bulky Items",81693
+"50","Fri","Dead Animal Removal",4864
+"51","Fri","Electronic Waste",8095
+"52","Fri","Feedback",210
+"53","Fri","Graffiti Removal",49610
+"54","Fri","Homeless Encampment",2351
+"55","Fri","Illegal Dumping Pickup",11111
+"56","Fri","Metal/Household Appliances",11217
+"57","Fri","Multiple Streetlight Issue",831
+"58","Fri","Other",2297
+"59","Fri","Report Water Waste",244
+"60","Fri","Single Streetlight Issue",2561
+"61","Sat","Bulky Items",111900
+"62","Sat","Dead Animal Removal",5097
+"63","Sat","Electronic Waste",11057
+"64","Sat","Feedback",179
+"65","Sat","Graffiti Removal",54798
+"66","Sat","Homeless Encampment",2633
+"67","Sat","Illegal Dumping Pickup",13711
+"68","Sat","Metal/Household Appliances",15301
+"69","Sat","Multiple Streetlight Issue",1003
+"70","Sat","Other",2362
+"71","Sat","Report Water Waste",275
+"72","Sat","Single Streetlight Issue",3269
+"73","Sun","Bulky Items",104493
+"74","Sun","Dead Animal Removal",4848
+"75","Sun","Electronic Waste",10183
+"76","Sun","Feedback",166
+"77","Sun","Graffiti Removal",53289
+"78","Sun","Homeless Encampment",2612
+"79","Sun","Illegal Dumping Pickup",12952
+"80","Sun","Metal/Household Appliances",13771
+"81","Sun","Multiple Streetlight Issue",860
+"82","Sun","Other",2436
+"83","Sun","Report Water Waste",205
+"84","Sun","Single Streetlight Issue",2784
